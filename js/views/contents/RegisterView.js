@@ -21,16 +21,26 @@ define([
         var email = this.$el.find("#exampleInputEmail2").val();
         var pwd = this.$el.find("#exampleInputPassword2").val();
         var id = _.uniqueId('user_');
+        var regModel = new RegisterModel({id:'1',email:'one@gmail.com',password:'hai'});
+
         var users = new UserCollection();
         users.fetch();
         var user = new RegisterModel({id:id,email:email,password:pwd});
         users.add(user);
         user.save();
-        users.models.forEach(function(model){
+        $("#event-bind").off('click').on('click',function() {
+            alert("hellow ");
         });
-       var MyApp = new Backbone.Router();
-       MyApp.navigate('', {trigger: true}); 
+        $("#event-unbind").off('click').on('click',function() {
+            alert("hellow unbind ");
+            $(this).listenTo($("#event-bind"));
+        });
+        //To navigate to others.
+        //var MyApp = new Backbone.Router();
+        //MyApp.navigate('', {trigger: true});
     }
   });
+ 
   return RegisterView;
 });
+
